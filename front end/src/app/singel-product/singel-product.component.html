@@ -1,0 +1,62 @@
+<div class="single-product">
+    <div class="single-product-container">
+        <div class="single-product-details">
+            <!-- Left side: Product Image -->
+            <div class="single-product-image">
+                <img [src]="product.image" alt="Product Image">
+            </div>
+
+            <!-- Right side: Product Info -->
+            <div class="single-product-info">
+                <h1 class="product-title">{{ product.name }}</h1>
+                <p class="product-description">
+                    {{ product.description || 'No description available.' }}
+                </p>
+
+                <div class="price">
+                    <p class="newprice">{{ product.new_price | currency }}</p>
+                    <p class="old-price">{{ product.old_price | currency }}</p>
+                </div>
+
+                <!-- Size and Color Selection -->
+                <div class="product-options">
+                    <div class="size-selection">
+                        <label for="size">Size:</label>
+                    <select id="size" class="product-size" [(ngModel)]="selectedSize">
+                        <option value="s">Small</option>
+                        <option value="m">Medium</option>
+                        <option value="l">Large</option>
+                        <option value="xl">Extra Large</option>
+                    </select>
+
+                    </div>
+
+                    <div class="color-selection">
+                        <label for="color">Color:</label>
+                        <div class="color-options">
+                            <div class="color-option" [ngClass]="{'selected': selectedColor === '#ff4141'}"
+                                [ngStyle]="{'background-color': '#ff4141'}" (click)="selectColor('#ff4141')">
+                            </div>
+                            <div class="color-option" [ngClass]="{'selected': selectedColor === '#007bff'}"
+                                [ngStyle]="{'background-color': '#007bff'}" (click)="selectColor('#007bff')">
+                            </div>
+                            <div class="color-option" [ngClass]="{'selected': selectedColor === '#28a745'}"
+                                [ngStyle]="{'background-color': '#28a745'}" (click)="selectColor('#28a745')">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Quantity and Add to Cart -->
+                <div class="product-quantity">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" [(ngModel)]="quantity" min="1" id="quantity" class="quantity-input" value="1" />
+                </div>
+
+                <button class="add-to-cart" (click)="addToCart()">Add to Cart</button>
+                <p class="single-product-wishlist">Add to Wishlist</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<section id="section-wrapper">
+    <div class="container">
+        <div class="left">
+            <form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
+                <h1>Contact Us</h1>
+                <hr />
+                <label for="name">Name</label><br />
+                <input id="name" type="text" formControlName="name" placeholder="Enter your name" required /><br />
+                <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+                    <small *ngIf="contactForm.get('name')?.errors?.['required']">Name is required.</small>
+                    <small *ngIf="contactForm.get('name')?.errors?.['minlength']">Name must be at least 3
+                        characters.</small>
+                </div>
+
+                <label for="email">Email</label><br />
+                <input id="email" type="email" formControlName="email" placeholder="Enter your email" required /><br />
+                <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                    <small *ngIf="contactForm.get('email')?.errors?.['required']">Email is required.</small>
+                    <small *ngIf="contactForm.get('email')?.errors?.['email']">Enter a valid email address.</small>
+                </div>
+
+                <label for="message">Message</label><br />
+                <textarea id="message" formControlName="message" rows="4" placeholder="Your message"
+                    required></textarea><br />
+                <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+                    <small *ngIf="contactForm.get('message')?.errors?.['required']">Message is required.</small>
+                    <small *ngIf="contactForm.get('message')?.errors?.['minlength']">Message must be at least 10
+                        characters.</small>
+                </div>
+
+                <button type="submit" [disabled]="contactForm.invalid">Submit</button>
+            </form>
+        </div>
+
+        <div class="right">
+            <h1>Locate Us</h1>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d870747.2227872191!2d35.40635403291872!3d31.51437159684127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14368976c35c36e9%3A0x2c45a00925c4c444!2z2YXYtdix!5e0!3m2!1sar!2seg!4v1736432653933!5m2!1sar!2seg"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</section>

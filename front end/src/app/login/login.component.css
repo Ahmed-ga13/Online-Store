@@ -1,0 +1,126 @@
+/* Login Page Styles */
+a{
+    text-decoration: none;
+}
+
+.loginsignup {
+    width: 100%;
+    height: 120vh;
+    background: #fce3fe;
+    padding-top: 100px;
+    margin-bottom: 15rem;
+}
+
+.loginsignup-container {
+    width: 680px;
+    height: 690px;
+    background: white;
+    margin: auto;
+    padding: 40px 60px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.loginsignup-container h1 {
+    margin: 20px 0;
+    text-align: center;
+    color: #ff4141;
+}
+
+.loginsignup-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 29px;
+    margin-top: 30px;
+}
+
+.loginsignup-fields input {
+    height: 60px;
+    width: 100%;
+    padding-left: 20px;
+    border: 1px solid #c9c9c9;
+    outline: none;
+    color: #5c5c5c;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+.loginsignup-fields input:focus {
+    border-color: #ff4141;
+}
+
+.loginsignup-container button {
+    width: 100%;
+    height: 60px;
+    color: white;
+    background: #ff4141;
+    margin-top: 30px;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.loginsignup-login {
+    margin-top: 20px;
+    color: #5c5c5c;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.loginsignup-login span {
+    color: #ff4141;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.loginsignup-agree {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    gap: 20px;
+    color: #5c5c5c;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.loginsignup-agree input {
+    accent-color: #ff4141;
+}
+
+.loginsignup-agree .checkbox {
+    margin-bottom: 14px;
+}
+
+.loginsignup-login a {
+    color: #ff4141;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+input.invalid {
+    border: 1px solid red;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .loginsignup-container {
+        padding: 20px;
+    }
+
+    .loginsignup-fields input {
+        width: 100%;
+        font-size: 1em;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+    }
+}

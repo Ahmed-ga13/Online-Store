@@ -1,0 +1,42 @@
+<div class="loginsignup">
+    <div class="loginsignup-container">
+        <h1>Sign Up</h1>
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+            <div class="loginsignup-fields">
+                <!-- اسم المستخدم -->
+                <input type="text" placeholder="Your Name" formControlName="name">
+                <div *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched" class="error-message">
+                    <p>Name is required</p>
+                </div>
+
+                <!-- البريد الإلكتروني -->
+                <input type="email" placeholder="Email Address" formControlName="email">
+                <div *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" class="error-message">
+                    <p *ngIf="signUpForm.get('email')?.hasError('required')">Email is required</p>
+                    <p *ngIf="signUpForm.get('email')?.hasError('email')">Please enter a valid email</p>
+                </div>
+
+                <!-- كلمة المرور -->
+                <input type="password" placeholder="Password" formControlName="password">
+                <div *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched"
+                    class="error-message">
+                    <p *ngIf="signUpForm.get('password')?.hasError('required')">Password is required</p>
+                    <p *ngIf="signUpForm.get('password')?.hasError('minlength')">Password must be at least 8 characters
+                    </p>
+                </div>
+
+                <!-- تذكرني -->
+            </div>
+            <div class="loginsignup-agree">
+                <input type="checkbox" formControlName="agree">
+                <p>By continuing, I agree to the terms of use & privacy policy.</p>
+            </div>
+
+            <button type="submit" [disabled]="signUpForm.invalid">Continue</button>
+
+            <p class="loginsignup-login">
+                Already have an account? <a routerLink="/login">Login here</a>
+            </p>
+        </form>
+    </div>
+</div>

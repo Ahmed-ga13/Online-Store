@@ -1,0 +1,45 @@
+<nav class="navbar">
+    <div class="nav-logo">
+        <img src="Assets/Frontend_Assets/logo.png" alt="logo">
+        <p>SHOPPER</p>
+    </div>
+    <ul class="nav-menu">
+        <li routerLink="home" routerLinkActive="activeLink" *ngIf="isAdmin">
+            <a href="/dashboard">Admin Dashboard</a>
+        </li>
+        <li routerLink="home" routerLinkActive="activeLink" *ngIf="isLoggedIn">
+            <a>Shop</a>
+        </li>
+        <li routerLink="men" routerLinkActive="activeLink" *ngIf="isLoggedIn">
+            <a>Men</a>
+        </li>
+        <li routerLink="women" routerLinkActive="activeLink" *ngIf="isLoggedIn">
+            <a>Women</a>
+        </li>
+        <li routerLink="kids" routerLinkActive="activeLink" *ngIf="isLoggedIn">
+            <a>Kids</a>
+        </li>
+        <li routerLink="faq" routerLinkActive="activeLink" *ngIf="isLoggedIn && !isAdmin" >
+            <a>FAQ</a>
+        </li>
+        <li routerLink="contact" routerLinkActive="activeLink" *ngIf="isLoggedIn && !isAdmin">
+            <a>Contact</a>
+        </li>
+    </ul>
+
+    <div class="nav-login-cart">
+        <!-- تسجيل الدخول أو تسجيل الخروج -->
+        <a *ngIf="!isLoggedIn; else logoutTemplate" routerLink="login">
+            <button class="nav-login">Login</button>
+        </a>
+        <ng-template #logoutTemplate>
+            <button class="nav-login" (click)="logout()">Logout</button>
+        </ng-template>
+    
+        <!-- السلة -->
+        <a routerLink="cart" *ngIf="isLoggedIn">
+            <img src="Assets/Frontend_Assets/cart_icon.png" alt="cart" />
+        </a>
+        <div class="nav-cart-count" *ngIf="isLoggedIn">{{ cartCount }}</div>
+    </div>
+</nav>

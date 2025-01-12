@@ -1,0 +1,46 @@
+<div class="loginsignup">
+    <div class="loginsignup-container">
+        <h1>Login</h1>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <!-- الرسائل العامة للأخطاء -->
+            <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
+
+            <div class="loginsignup-fields">
+                <!-- البريد الإلكتروني -->
+                <input type="email" formControlName="email" placeholder="Email Address"
+                    [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" />
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+                    <p *ngIf="loginForm.get('email')?.hasError('required')">Email is required.</p>
+                    <p *ngIf="loginForm.get('email')?.hasError('email')">Please enter a valid email address.</p>
+                </div>
+
+                <!-- كلمة المرور -->
+                <input type="password" formControlName="password" placeholder="Password"
+                    [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                    class="error-message">
+                    <p *ngIf="loginForm.get('password')?.hasError('required')">Password is required.</p>
+                    <p *ngIf="loginForm.get('password')?.hasError('minlength')">
+                        Password must be at least 6 characters long.
+                    </p>
+                </div>
+            </div>
+
+            <!-- تذكرني -->
+            <div class="loginsignup-agree">
+                <input type="checkbox" id="remember" formControlName="rememberMe" />
+                <p>Remember me</p>
+            </div>
+
+            <!-- زر الدخول -->
+            <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+            <!-- رابط التسجيل -->
+            <p class="loginsignup-login">
+                Don't have an account? <a routerLink="/signup">Sign up here</a>
+            </p>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<section id="contactHeader">
+    <div class="container">
+        <div class="title">
+            <h2 class="mb25">Frequently Asked Questions (FAQ)</h2>
+            <p>Welcome to our FAQ section! Here, you'll find answers to some of the most common questions about our clothing e-commerce
+            services, processes, and shopping experience. If you have any additional questions, feel free to reach out through our
+            contact page.</p>
+        </div>
+    </div>
+</section>
+
+<section id="faqSec">
+    <div class="container">
+        <div class="faqContent">
+            <div *ngFor="let faq of faqs" class="faqItem" [ngClass]="{'open': faq.isOpen}">
+                <button (click)="toggleAnswer(faq)">
+                    <h4>{{ faq.question }}</h4>
+                    <i class="fa-solid fa-angle-down"></i>
+                </button>
+                <div class="ans" *ngIf="faq.isOpen">
+                    <p>{{ faq.answer }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

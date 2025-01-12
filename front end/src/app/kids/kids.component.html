@@ -1,0 +1,21 @@
+<Section class="kids-collection">
+
+    <img src="Assets/Frontend_Assets/banner_kids.png" alt="Kidsbanar">
+    <div class="product-container">
+        <h1>Kid's Products</h1>
+        <hr>
+        <div class="product-list">
+            <!-- التكرار عبر المنتجات -->
+            <div class="product-item" *ngFor="let product of products | slice:24:36">
+                <a [routerLink]="['/product', product.id]">
+                    <img [src]="product.image" alt="{{ product.name }}" />
+                    <h2>{{ product.name }}</h2>
+                </a>
+                <div class="price">
+                    <p class="newprice">{{ product.new_price | currency }}</p>
+                    <p class="old-price">{{ product.old_price | currency }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</Section>

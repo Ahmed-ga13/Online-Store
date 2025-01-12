@@ -1,0 +1,61 @@
+<div class="cart">
+    <div class="cart-container">
+        <h1>Your Cart</h1>
+        <div class="cart-items">
+            <!-- Iterate through cartItems -->
+            <div *ngFor="let item of cartItems; let i = index" class="cart-item">
+                <img [src]="item.image" alt="Product Image">
+                <div class="item-details">
+                    <h2>{{ item.name }}</h2>
+                    <div class="item-options">
+                        <div class="item-color">
+                            <span class="color-label">Color:</span>
+                            <span class="color-circle" [ngStyle]="{'background-color': item.color}"></span>
+                        </div>
+                        <p>Size: <span>{{ item.size }}</span></p>
+                    </div>
+                    <div class="item-quantity">
+                        <h5 [(ngModel)]="item.quantity" min="1" (ngModelChange)="onQuantityChange(item)">
+                            Quantity: {{ item.quantity }}
+                        </h5>
+                    </div>
+                    <p class="item-price">{{ item.price * item.quantity | currency }}</p>
+                </div>
+                <button class="remove-item" (click)="removeFromCart(item)">Remove</button>
+            </div>
+        </div>
+        <div class="cart-total">
+            <p>Total: <span>{{ getTotal() | currency }}</span></p>
+            <button class="checkout-button" (click)="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+        <p class="continue-shopping">Want to add more items? <span>Continue Shopping</span></p>
+
+        <!-- Show error message if cart is empty -->
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+        <!-- Checkout form -->
+        <div *ngIf="showCheckoutForm" class="checkout-form">
+            <h2>Checkout Form</h2>
+            <form (ngSubmit)="submitCheckoutForm(checkoutForm.value)" #checkoutForm="ngForm">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" ngModel required>
+            
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" ngModel required>
+            
+                <label for="address">Shipping Address</label>
+                <textarea id="address" name="address" ngModel required></textarea>
+            
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" ngModel required>
+            
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        
+            <!-- Success or Error messages -->
+            <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,137 @@
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <header class="dashboard-header">
+        <h1>Welcome to the Admin Dashboard</h1>
+        <p>Manage your products, orders, and users effectively.</p>
+    </header>
+
+    <!-- Overview Stats Section -->
+    <section class="stats-overview">
+        <div class="stat-card">
+            <h3>Total Products</h3>
+            <p>{{ totalProductsCount }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Orders</h3>
+            <p>{{ totalOrdersCount }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Users</h3>
+            <p>{{ totalUsersCount }}</p>
+        </div>
+    </section>
+
+    <!-- Product Management Section -->
+    <section class="product-management">
+        <div class="section-header">
+            <h2>Product Management</h2>
+            <button class="primary-btn" (click)="openAddProductModal()">+ Add Product</button>
+        </div>
+        <!-- فورم لاضافه منتج -->
+        <div *ngIf="showAddProductForm">
+            <form [formGroup]="addproductForm" (ngSubmit)="addproduct()">
+                <div class="form-group">
+                    <label for="name">Product Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter product name" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="new_price">New Price</label>
+                    <input type="number" class="form-control" id="new_price" formControlName="new_price"
+                        placeholder="Enter product new price" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="old_price">Old Price</label>
+                    <input type="number" class="form-control" id="old_price" formControlName="old_price"
+                        placeholder="Enter product old price" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" class="form-control" id="category" formControlName="category"
+                        placeholder="Enter product category" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="image">Product Image</label>
+                    <input type="file" class="form-control-file" id="image" (change)="onFilleChange($event)" />
+                </div>
+        
+                <button type="submit" class="btn btn-primary mt-2" [disabled]="addproductForm.invalid">
+                    Add Product
+                </button>
+            </form>
+        </div>
+
+        <!-- فورم لتعديل منتج -->
+
+        <div *ngIf="showAddProductForm">
+            <form [formGroup]="editProductForm" (ngSubmit)="updateProduct()">
+                <div class="form-group">
+                    <label for="name">Product Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter product name" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="new_price">New Price</label>
+                    <input type="number" class="form-control" id="new_price" formControlName="new_price"
+                        placeholder="Enter product new price" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="old_price">Old Price</label>
+                    <input type="number" class="form-control" id="old_price" formControlName="old_price"
+                        placeholder="Enter product old price" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" class="form-control" id="category" formControlName="category"
+                        placeholder="Enter product category" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="image">Product Image</label>
+                    <input type="file" class="form-control-file" id="image" (change)="onFileChange($event)" />
+                </div>
+        
+                <button type="submit" class="btn btn-primary mt-2" [disabled]="editProductForm.invalid">
+                    Update Product
+                </button>
+            </form>
+        </div>
+
+
+        <div class="products">
+            <div class="product-card" *ngFor="let product of products">
+                <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+                <div class="product-info">
+                    <h4 class="product-title">{{ product.name }}</h4>
+                    <div class="price">
+                        <p class="newprice">New Price: {{ product.new_price }}</p>
+                        <p class="old-price">Old Price: {{ product.old_price }}</p>
+                    </div>
+                    <p class="product-category">Category: {{ product.category }}</p>
+                </div>
+                <!-- زر التعديل -->
+                <button class="secondary-btn" (click)="openEditProductModal(product)">Edit</button>
+                <!-- زر الحذف -->
+                <button class="danger-btn" (click)="deleteProduct(product.id)">Delete</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Orders Section -->
+    <section class="orders-section">
+        <h2>Latest Orders</h2>
+        <div class="orders">
+            <div class="order-card" *ngFor="let order of orders">
+                <p><strong>User:</strong> {{ order.userName }}</p>
+                <p><strong>Status:</strong> {{ order.status }}</p>
+                <p><strong>Amount:</strong> {{ order.amount }} USD</p>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,94 @@
+/* Contact */
+
+#section-wrapper {
+    width: 90%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 80px;
+    padding: 0 140px;
+    margin-bottom: 100px;
+    background: linear-gradient(180deg, #fde1ff, #e1ffea22 10%);
+    gap: 30px;
+}
+
+#section-wrapper .container {
+    width: 1140px;
+    margin: auto;
+}
+
+.left {
+    width: 50%;
+    float: left;
+    padding: 20px 0px;
+}
+
+#section-wrapper form {
+    width: 60%;
+}
+
+#section-wrapper form hr {
+    width: 200px;
+    height: 6px;
+    border-radius: 10px;
+    background: #252525;
+    margin: 0 0 20px 0;
+}
+
+#section-wrapper h1 {
+    padding: 24px 0px;
+    font-size: 40px;
+    color: #ff4141;
+}
+
+#section-wrapper label {
+    font-size: 20px;
+    position: relative;
+    top: 8px;
+}
+
+#section-wrapper input,
+#section-wrapper textarea {
+    width: 100%;
+    border: 1px solid #666666;
+    padding: 12px 0px;
+    font-size: 16px;
+    margin: 20px 0px;
+    border-radius: 4px;
+    text-indent: 8px;
+}
+
+#section-wrapper button {
+    width: 100%;
+    padding: 12px 8px;
+    font-size: 16px;
+    font-weight: 500;
+    background: #ff4141;
+    border: 1px solid #ff4141;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#section-wrapper .right {
+    width: 50%;
+    height: 540px;
+    margin-top: 12px;
+    float: right;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+#section-wrapper .right iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 25px;
+}
+
+small {
+    color: red;
+}

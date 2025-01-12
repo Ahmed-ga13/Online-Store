@@ -1,0 +1,20 @@
+<section class="women-collection">
+    <img src="Assets/Frontend_Assets/banner_women.png" alt="Womenbanar">
+    <div class="product-container">
+        <h1>Women's Products</h1>
+        <hr>
+        <div class="product-list">
+            <!-- التكرار عبر المنتجات -->
+            <div class="product-item" *ngFor="let product of products | slice:0:12">
+                <a [routerLink]="['/product', product.id]">
+                    <img [src]="product.image" alt="{{ product.name }}" />
+                    <h2>{{ product.name }}</h2>
+                </a>
+                <div class="price">
+                    <p class="newprice">{{ product.new_price | currency }}</p>
+                    <p class="old-price">{{ product.old_price | currency }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
