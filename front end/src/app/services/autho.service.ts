@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -19,6 +19,14 @@ export class AuthoService {
     }
   }
 
+  // إضافة التوكن في الهيدر
+  private getHeaders(): HttpHeaders {
+    const token = this.tokenSubject.value;
+    return new HttpHeaders({
+      Authorization: token ? `Bearer ${token}` : '',
+    });
+  }
+
   login(loginData: { email: string; password: string }): Observable<any> {
     return this._http
       .post<{ accessToken: string }>(
@@ -31,7 +39,7 @@ export class AuthoService {
           if (token) {
             localStorage.setItem('accessToken', token);
             this.tokenSubject.next(token);
-            this._router.navigate(['/home']); // التوجيه إلى صفحة بعد تسجيل الدخول
+            this._router.navigate(['/home']);
           }
         })
       );
@@ -57,7 +65,30 @@ export class AuthoService {
 
   // دالة للتحقق إذا كان المستخدم هو Admin
   isAdmin(): boolean {
-    // تأكد من أن الدور محفوظ في localStorage عند تسجيل الدخول
     return localStorage.getItem('role') === 'Admin';
+  }
+
+  // التحقق من صلاحية التوكن
+  isTokenExpired(): boolean {
+    const token = this.tokenSubject.value;
+    if (token) {
+      const decodedToken = jwtDecode<any>(token);
+      const expirationDate = decodedToken.exp * 1000; // تحويل التاريخ إلى ميلي ثانية
+      return expirationDate < Date.now(); // التحقق إذا انتهت صلاحية التوكن
+    }
+    return true;
+  }
+
+  // دالة لاستخدام التوكن في طلبات HTTP
+  makeRequestWithToken(url: string): Observable<any> {
+    if (this.isTokenExpired()) {
+      this.logout(); // إذا انتهت صلاحية التوكن، يتم تسجيل الخروج
+      this._router.navigate(['/login']);
+      return new Observable(observer => {
+        observer.next(null);
+        observer.complete();
+      });
+    }
+    return this._http.get(url, { headers: this.getHeaders() });
   }
 }

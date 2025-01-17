@@ -117,7 +117,8 @@
                 <!-- زر التعديل -->
                 <button class="secondary-btn" (click)="openEditProductModal(product)">Edit</button>
                 <!-- زر الحذف -->
-                <button class="danger-btn" (click)="deleteProduct(product.id)">Delete</button>
+                <button class="danger-btn" (click)="deleteProduct(product.id, product.isDelete)">Delete</button>
+
             </div>
         </div>
 

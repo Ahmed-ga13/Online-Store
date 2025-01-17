@@ -158,7 +158,13 @@ export class DashboardComponent implements OnInit {
   }
 
   // داله ل حذف المنتج
-  deleteProduct(id: number) {
+  deleteProduct(id: number, isDelete: boolean) {
+    if (!isDelete) {
+      // إذا كانت isDelete غير صحيحة، لا نقوم بتنفيذ الحذف
+      alert('هذا المنتج لا يمكن حذفه.');
+      return;
+    }
+
     const confirmationMessage = 'Are you sure you want to delete this product?';
     if (confirm(confirmationMessage)) {
       this.productService.deleteProduct(id).subscribe({
@@ -168,7 +174,7 @@ export class DashboardComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error deleting product:', error);
-        }
+        },
       });
     }
   }

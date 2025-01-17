@@ -4,12 +4,12 @@ import { ProductsService } from '../services/products.service';
 @Component({
   selector: 'app-kids',
   standalone: false,
-
   templateUrl: './kids.component.html',
-  styleUrl: './kids.component.css',
+  styleUrls: ['./kids.component.css'],
 })
 export class KidsComponent implements OnInit {
   products: any[] = [];
+
   constructor(private productsService: ProductsService) {}
 
   ngOnInit() {
@@ -17,7 +17,9 @@ export class KidsComponent implements OnInit {
     this.productsService.getProducts().subscribe((data) => {
       console.log(data);
 
-      this.products = data;
+      // التحقق من المنتجات المحذوفة
+      this.products = data.filter((product: any) => !product.isDeleted);
+
       this.products.forEach((product) => {
         console.log(product);
         console.log(product.image); // تأكد من أن الرابط صالح

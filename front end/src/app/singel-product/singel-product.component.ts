@@ -7,7 +7,7 @@ import { CartItem, CartService } from '../services/cart.service';
   selector: 'app-singel-product',
   standalone: false,
   templateUrl: './singel-product.component.html',
-  styleUrls: ['./singel-product.component.css'], // Corrected typo in styleUrls
+  styleUrls: ['./singel-product.component.css'],
 })
 export class SingelProductComponent implements OnInit {
   product: any; // يحتوي على بيانات المنتج
@@ -28,6 +28,13 @@ export class SingelProductComponent implements OnInit {
       this.productsService.getProductById(productId).subscribe({
         next: (data) => {
           this.product = data;
+
+          // التحقق إذا كان المنتج محذوفًا
+          if (this.product?.isDeleted) {
+            alert('This product has been deleted and cannot be viewed.');
+            return;
+          }
+
           if (this.product?.sizes?.length) {
             this.selectedSize = this.product.sizes[0]; // تعيين أول حجم بشكل افتراضي
           }

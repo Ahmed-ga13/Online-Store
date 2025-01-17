@@ -4,9 +4,8 @@ import { ProductsService } from '../services/products.service';
 @Component({
   selector: 'app-women',
   standalone: false,
-
   templateUrl: './women.component.html',
-  styleUrl: './women.component.css',
+  styleUrls: ['./women.component.css'], // تأكد من أن اسم الملف هنا هو "styleUrls" وليس "styleUrl"
 })
 export class WomenComponent implements OnInit {
   products: any[] = [];
@@ -18,11 +17,9 @@ export class WomenComponent implements OnInit {
     this.productsService.getProducts().subscribe((data) => {
       console.log(data);
 
-      this.products = data;
-      this.products.forEach((product) => {
-        console.log(product);
-        console.log(product.image); // تأكد من أن الرابط صالح
-      });
+      // تصفية المنتجات التي لم يتم حذفها
+      this.products = data.filter((product: any) => !product.isDeleted);
+      console.log(this.products); // عرض المنتجات المتاحة فقط
     });
   }
 }

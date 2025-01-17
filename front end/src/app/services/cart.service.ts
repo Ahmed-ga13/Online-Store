@@ -1,5 +1,4 @@
-// خدمة CartService
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -92,8 +91,23 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.cartItems));
   }
 
+  // دالة للحصول على التوكن من localStorage
+  private getToken(): string | null {
+    return localStorage.getItem('accessToken');
+  }
+
+  // دالة للحصول على الهيدر مع التوكن
+  private getHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      Authorization: token ? `Bearer ${token}` : '',
+    });
+  }
+
   // دالة لإرسال الطلب
   submitOrder(orderData: any): Observable<any> {
-    return this._http.post(this.orderUrl, orderData); // إرسال الطلب إلى الـ Backend
+    return this._http.post(this.orderUrl, orderData, {
+      headers: this.getHeaders(), // إضافة الهيدر مع التوكن
+    });
   }
 }
