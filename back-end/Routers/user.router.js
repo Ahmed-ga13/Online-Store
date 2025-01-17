@@ -1,9 +1,16 @@
-const express = require('express');
+// routes/user.routes.js
+const express = require("express");
 const router = express.Router();
-const userController = require('../Controllers/user.controller');
+const userController = require("../Controllers/user.controller");
+const authMW = require("../utili/auth");
 
-router.get('/',userController.getUsers);
-router.post('/',userController.createUser);
-router.post('/login',userController.login);
+// مسار للحصول على المستخدمين
+router.get("/", authMW.authMW, userController.getUsers); // محمي بـ JWT Middleware
+
+// مسار لإنشاء مستخدم جديد
+router.post("/", userController.createUser);
+
+// مسار لتسجيل الدخول
+router.post("/login", userController.login);
 
 module.exports = router;

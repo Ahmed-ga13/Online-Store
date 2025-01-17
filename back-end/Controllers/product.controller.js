@@ -41,7 +41,7 @@ exports.createProduct = (req, res) => {
 
 exports.getProducts = async (req, res) => {
   try {
-    const products = await productModel.find();
+    const products = await productModel.find({ isDeleted: { $ne: true } });
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -49,9 +49,12 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.getProductById = async (req, res) => {
-  const productId = req.params.id; // الحصول على الـ id من الـ params في الـ URL
+  const productId = req.params.id;
   try {
-    const product = await productModel.findOne({ id: productId });
+    const product = await productModel.findOne({
+      id: productId,
+      isDeleted: { $ne: true },
+    });
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -60,6 +63,7 @@ exports.getProductById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 exports.updateProduct = async (req, res) => {
   const { name, category, new_price, old_price } = req.body;
@@ -96,20 +100,22 @@ exports.updateProduct = async (req, res) => {
 };
 
 exports.deleteProduct = async (req, res) => {
-  const productId = req.params.id; // الحصول على الـ id من الـ params في الـ URL
+  const productId = req.params.id;
 
   try {
-    const deletedProduct = await productModel.findOneAndDelete({
-      id: productId,
-    });
+    const updatedProduct = await productModel.findOneAndUpdate(
+      { _id: productId },
+      { isDeleted: true },
+      { new: true }
+    );
 
-    if (!deletedProduct) {
+    if (!updatedProduct) {
       return res.status(404).json({ message: "Product not found" });
     }
 
     res.status(200).json({
-      message: "Product deleted successfully!",
-      product: deletedProduct,
+      message: "Product marked as deleted successfully!",
+      product: updatedProduct,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
